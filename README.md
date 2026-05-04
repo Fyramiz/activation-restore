@@ -26,10 +26,10 @@ Install from the [official repository](https://github.com/palera1n/palera1n) and
 
 ### 2. iproxy
 
-`iproxy` tunnels the device SSH over USB to localhost port `2222`.
+`iproxy` tunnels the device SSH over USB to localhost port `22`.
 
 ```bash
-iproxy 2222 22
+sudo iproxy 22 44
 ```
 
 If your palera1n setup already handles this automatically, no action is needed.
@@ -93,17 +93,17 @@ Activation/
 
 ## 🚀 Usage
 
-### Step 1 — Boot SSH ramdisk
+### Step 1 — Jailbreak using Palera1n
 
-Start the device in SSH ramdisk mode using palera1n.
+consider reading palera1n docs, an issue i faced was device not entering download mode, for that i just rebooted the host (My PC) and made sure to run ``sudo palera1n -l``
 
 ### Step 2 — Start iproxy
 
 ```bash
-iproxy 2222 22
+sudo iproxy 22 44
 ```
 
-### Step 3 — Verify SSH access
+### Step 3 — Verify SSH access (completely optional.)
 
 ```bash
 ssh root@localhost -p 2222
@@ -126,6 +126,7 @@ If you use a different path, edit the following line in `run.sh` before running:
 ```bash
 ~/Desktop/Activation root@$IP:/var/mobile/Media/Downloads/1
 ```
+make sure to have a backup of the activation records backup (no one knows if an ionizing particle from space (cosmic ray) switches a bit in whatever CPU instruction and deleted those files LOL, just kidding, but make sure to back them up).
 
 ### Step 5 — Make the script executable
 
@@ -188,7 +189,7 @@ chmod +x run.sh
 A: This script does not provide or generate activation files. You must obtain valid files for your specific device and iOS version through your own means.
 
 **Q: What iOS versions are supported?**  
-A: The script targets the file paths used by iOS 15–16 ramdisk environments via palera1n. Paths such as `/var/mobile/Library/FairPlay` and the system container layout may differ on other versions.
+A: The script targets the file paths used by iOS 15–16 ramdisk environments via palera1n. Paths such as `/var/mobile/Library/FairPlay` and the system container layout may differ on other versions. (AI hallucination, i found nothing about this online.)
 
 **Q: Can I run this on macOS?**  
 A: Yes. Install `sshpass` via Homebrew (`brew install sshpass`) and ensure `iproxy` is available through libimobiledevice. Everything else is standard shell.
@@ -204,7 +205,7 @@ A: Yes. Edit this line in `run.sh`:
 Replace `~/Desktop/Activation` with your actual path.
 
 **Q: What is `ldrestart` and is it safe?**  
-A: `ldrestart` is an Apple-internal command that restarts launchd and all managed processes without a full kernel reboot. In a ramdisk context it is used here to reload activation-related daemons before the final `reboot` call.
+A: `ldrestart` is an Apple-internal command that restarts launchd and all managed processes without a full kernel reboot. In a ramdisk context it is used here to reload activation-related daemons before the final `reboot` call. (it actually simply doesnt work LOL, but it has no danger so i've kept it.)
 
 **Q: My SSH times out immediately — what's wrong?**  
 A: The most common causes are: iproxy not running, the device not fully booted into ramdisk mode yet, or a USB connection issue. See [Troubleshooting](#-troubleshooting).
@@ -216,8 +217,8 @@ A: The most common causes are: iproxy not running, the device not fully booted i
 ### SSH connection fails
 
 - Confirm the device is in SSH ramdisk mode (not normal boot or recovery)
-- Confirm `iproxy 2222 22` is running in a separate terminal
-- Try connecting manually: `ssh root@localhost -p 2222` (password: `alpine`)
+- Confirm `iproxy 22 44` is running in a separate terminal
+- Try connecting manually: `ssh root@localhost -p 22` (password: `alpine`)
 - Try a different USB cable or port
 - Restart the ramdisk boot and try again
 
