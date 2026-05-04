@@ -1,7 +1,7 @@
 #!/bin/bash
 
 IP=localhost
-PORT=2222
+PORT=22
 PASS=alpine
 
 echo "[*] Waiting for SSH..."
